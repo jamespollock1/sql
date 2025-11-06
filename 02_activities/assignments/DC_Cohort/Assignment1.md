@@ -106,6 +106,10 @@ Please do not pick the exact same tables that I have already diagrammed. For exa
 	- <img src="./images/01_farmers_market_conceptual_model.png" width="600">
 - The column names can be found in a few spots (DB Schema window in the bottom right, the Database Structure tab in the main window by expanding each table entry, at the top of the Browse Data tab in the main window)
 
+**My Logical Data Model**:
+
+<img src="./images/assignmentone.model.png" width="600">
+
 ***
 
 ## Section 2:
@@ -205,5 +209,32 @@ Consider, for example, concepts of fariness, inequality, social structures, marg
 
 
 ```
-Your thoughts...
+My thoughts...
+
+As a graduate student, some of the most common and user-friendly data systems I encounter nearly daily are survey tools like Google Forms, SurveyMonkey, and Microsoft Forms. While they’re often used to collect contact info and other innocuous data for participants of an upcoming event, these tools have the potential to perpetutate bias and prejudice, depending on the value systems embedded by the owner of the survey. 
+
+Consider this example of a survey tool collecting the following information for the users/customers of a shopping website:
+
+Full name (text field)
+Sex (drop down list)
+Ethnicity (drop down list)
+Citizenship (text field)
+Address (text field)
+Phone Number (text field)
+
+Several potential pitfalls a survey tool user may encounter are:
+
+1) The text field is too small to fill out the user’s full name, as they tend to write it.(https://en.wikipedia.org/wiki/Personal_name#Naming_conventions).
+
+2) The user may prefer to provide their gender, a non-binary option, or give no response.
+
+3) The user’s ethnicity is not listed as an option.
+
+4) It is not clear whether the user should provide their citizenship status or country of birth.
+
+Finally, after the user has provided their (potentially) sensitive demographic data, the form attaches the user’s contact information to their data entry.
+
+Even if a survey tool designer has no malicious intent, in this example their personal value systems around gender and ethnicity affect what’s included in the form (ex. their perceptions of the type of data they are interested in collecting), what’s not included in the form (ex. variables they may be biased against collecting), and what should be included in the form (ex. more ways for the user to provide accurate data, at their discretion).
+
+This is all in regards to the design of the survey tool, but values systems can also affect how data is handled and used as well. In class we've sorted farmers' market data by customer name, product ID, market date, etc. When it comes to sorting demographic data like gender, ethnicity/race, and religion, they may be (intentionally or not) handled ordinally according to one's value systems...
 ```
