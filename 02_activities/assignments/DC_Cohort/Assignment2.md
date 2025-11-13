@@ -45,8 +45,16 @@ There are several tools online you can use, I'd recommend [Draw.io](https://www.
 
 **HINT:** You do not need to create any data for this prompt. This is a conceptual model only. 
 
+**Logical Data Model 1**:
+
+<img src="./images/assignment_two_prompt_one.png" width="600">
+
 #### Prompt 2
 We want to create employee shifts, splitting up the day into morning and evening. Add this to the ERD.
+
+**Logical Data Model 2**:
+
+<img src="./images/assignment_two_prompt_two.png" width="600">
 
 #### Prompt 3
 The store wants to keep customer addresses. Propose two architectures for the CUSTOMER_ADDRESS table, one that will retain changes, and another that will overwrite. Which is type 1, which is type 2? 
@@ -54,7 +62,26 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
 ```
-Your answer...
+My answer...
+
+## Type 1 SCD architecture
+
+CUSTOMER_ADDRESS
+    customer_id
+    customer_address
+
+Type 1 SCD architecture will overwrite customer_address as new data becomes available.
+
+
+## Type 2 SCD architecture
+
+CUSTOMER_ADDRESS
+    customer_id
+    customer_address
+    start_date
+    end_date
+
+Type 2 SCD architecture will retain historical data by adding an end date to customer_address as new data becomes available (end_date will be NULL until new customer_address is entered).
 ```
 
 ***
@@ -183,5 +210,14 @@ Consider, for example, concepts of labour, bias, LLM proliferation, moderating c
 
 
 ```
-Your thoughts...
+My thoughts...
+
+This article touches on a few ethical dilemmas around labour and neural net development. 
+
+The author discusses the use of manually-built databases, word corpus platforms and annotated image datasets, for neural net development. The often large, globalized workforces that tediously assemble training datasets for neural net/LLM development often go unacknowledged for their contributions and, critically, uncompensated. These tools can be highly lucrative (OpenAI is now valued ~$500 billion) however the workers that built the datasets that built these machine learning models will likely never see a cent of these profits.
+
+Speaking of pennies, the articles suggests that these workers are poorly paid for the labour required to built training datasets. By using globalized workforces, tech companies are likely able to dodge labour standards in various jurisdictions, and by labelling their workers as “independent contractors" (https://www.sciencefocus.com/future-technology/artificial-intelligence-quietly-relies-on-workers-earning-2-per-hour), companies like Amazon Mechanical Turk are able to deny their employees the rights or benefits expected from any job.
+
+Lastly, these workers are effectively working to replace themselves and many other humans with AI. While these tedious tasks may not contitute the most glamorous job, manual labour positions are still important in these economically precarious times.
+
 ```
