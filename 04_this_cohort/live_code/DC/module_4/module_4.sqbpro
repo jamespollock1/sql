@@ -1,8 +1,13 @@
+<<<<<<< HEAD
+=======
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="12168"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/><expanded_item id="4" parent="1"/></tab_structure><tab_browse><table title="booth" custom_title="0" dock_id="2" table="4,5:mainbooth"/><dock_state state="000000ff00000000fd000000010000000200000546000003a5fc0100000002fb000000160064006f0063006b00420072006f00770073006500310100000000ffffffff0000000000000000fc00000000000005460000012300fffffffa000000000100000002fb000000160064006f0063006b00420072006f00770073006500320100000000ffffffff0000012300fffffffb000000180064006f0063006b00420072006f007700730065003100390000000000ffffffff0000000000000000000005460000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="IFNULL_NULLIF">/* MODULE 4 */
+>>>>>>> 40867c37bc69f213a0b31c333943379c670513c2
 /* NULL Management */
 
 
 /* 1. IFNULL: Missing product_size, missing product_qty_type */ 
 SELECT *
+<<<<<<< HEAD
 ,ifnull(product_size,'Unknown') as new_product_size
 -- replace with another column
 ,ifnull(product_size,product_qty_type) as silly_replacement
@@ -12,16 +17,40 @@ SELECT *
 ,coalesce(product_qty_type,product_size,'missing') as more_replacements -- if the first value is null, then the second value, ... if the second value is null, then "missing"
 
 ,IFNULL(IFNULL(product_size,product_qty_type),'missing') as equiv_replacements -- if the first value is null, then the second value, ... if the second value is null, then "missing"
+=======
+,IFNULL(product_size,'Unknown') as new_product_size
+--replace with another column
+,IFNULL(product_size,product_qty_type) as silly_replacement
+
+/* 2. Coalesce */
+,coalesce(product_size,product_qty_type,'missing') as more_replacements -- if the first value is null, then the second value, ... if the second value is null, then &quot;missing&quot;
+,coalesce(product_qty_type,product_size,'missing') as more_replacements -- if the first value is null, then the second value, ... if the second value is null, then &quot;missing&quot;
+>>>>>>> 40867c37bc69f213a0b31c333943379c670513c2
+
+,IFNULL(IFNULL(product_size,product_qty_type),'missing') as equiv_replacements -- if the first value is null, then the second value, ... if the second value is null, then &quot;missing&quot;
 
 
 FROM product;
 
+FROM product;
+
 /* 3. NULLIF
+<<<<<<< HEAD
 finding values in the product_size column that are "blank" strings and setting them to NULL if they are blank */
 SELECT *
 --,ifnull(product_size,'Unknown')
 --,NULLIF(product_size,'')
 ,coalesce(NULLIF(product_size,''),'Unknown') replaced_values
+=======
+finding values in the product_size column that are &quot;blank&quot; strings and setting them to NULL if they are blank */
+SELECT *
+--,IFNULL(product_size, 'Unknown')
+--,NULLIF(product_size,'') 
+,coalesce(NULLIF(product_size,''),'Unknown') replaced_values
+
+FROM product;
+
+>>>>>>> 40867c37bc69f213a0b31c333943379c670513c2
 
 FROM product;
 /* 4. NULLIF 
@@ -30,7 +59,16 @@ SELECT *
 FROM product
 WHERE NULLIF(product_size,'') IS NULL
 
+<<<<<<< HEAD
 /* MODULE 4 */
+=======
+SELECT *
+FROM product
+
+WHERE NULLIF(product_size,'') IS NULL
+
+</sql><sql name="budget_coalesce_NULLIF">/* MODULE 4 */
+>>>>>>> 40867c37bc69f213a0b31c333943379c670513c2
 /* NULLIF Budget (example from the slides) */
 
 /* The following example creates a budgets table to show a department (dept) 
@@ -71,7 +109,11 @@ FROM budgets
 https://learn.microsoft.com/en-us/sql/t-sql/language-elements/nullif-transact-sql?view=sql-server-ver17
 */
 
+<<<<<<< HEAD
 /* MODULE 4 */
+=======
+</sql><sql name="ROW_NUMBER">/* MODULE 4 */
+>>>>>>> 40867c37bc69f213a0b31c333943379c670513c2
 /* Windowed functions: row_number */
 
 
@@ -89,16 +131,26 @@ FROM
 	,original_price
 	,market_date
 	,ROW_NUMBER() OVER(PARTITION BY vendor_id ORDER BY original_price DESC) as price_rank
+<<<<<<< HEAD
 	,ROW_NUMBER() OVER(PARTITION BY vendor_id,product_id ORDER BY original_price DESC)
+=======
+	-- if we add product_id we could potentially track the time where original_price changed
+	,ROW_NUMBER() OVER(PARTITION BY vendor_id,product_id ORDER BY original_price DESC)
+	
+>>>>>>> 40867c37bc69f213a0b31c333943379c670513c2
 	FROM vendor_inventory
 ) x
 INNER JOIN product p
 	ON x.product_id = p.product_id
 
+<<<<<<< HEAD
 WHERE x.price_rank = 1
 
 
 
+=======
+WHERE x.price_rank = 1;
+>>>>>>> 40867c37bc69f213a0b31c333943379c670513c2
 
 /* See how this varies from using max due to the group by 
 SELECT vendor_id,
@@ -127,10 +179,14 @@ GROUP BY vendor_id--,product_id
 ) x
 WHERE x.sales_rank = 1
 
+<<<<<<< HEAD
 ORDER BY cost desc
 
 
 /* MODULE 4 */
+=======
+ORDER BY cost desc</sql><sql name="row_rank_dense">/* MODULE 4 */
+>>>>>>> 40867c37bc69f213a0b31c333943379c670513c2
 /* Windowed functions: dense_rank, rank, row_number */
 
 
@@ -155,7 +211,13 @@ VALUES
 (7, 230000),
 (8, 100000),
 (9, 165000),
-(10, 100000);
+(10, 100000),
+(11, 90000);
+
+SELECT *
+,ROW_NUMBER() OVER(ORDER BY salary DESC) as [row_number]
+,RANK() OVER(ORDER BY salary DESC) as [rank]
+,DENSE_RANK() OVER(ORDER BY salary DESC) as [dense_rank]
 
 SELECT *
 ,ROW_NUMBER() OVER(ORDER BY salary DESC) as [row_number]
@@ -165,8 +227,12 @@ SELECT *
 FROM row_rank_dense
 
 
+<<<<<<< HEAD
 
 /* MODULE 4 */
+=======
+</sql><sql name="NTILE">/* MODULE 4 */
+>>>>>>> 40867c37bc69f213a0b31c333943379c670513c2
 /* Windowed functions: NTILE */
 
 
@@ -193,9 +259,13 @@ FROM (
 		ON v.vendor_id = cp.vendor_id
 		
 	GROUP BY cp.market_date, v.vendor_id
+<<<<<<< HEAD
 ) x
 
   /* MODULE 4 */
+=======
+) x</sql><sql name="string_manipulations">/* MODULE 4 */
+>>>>>>> 40867c37bc69f213a0b31c333943379c670513c2
 /* String Manipulations */
 
 
@@ -251,11 +321,16 @@ FROM customer
 /* 8. REGEXP in a WHERE statement */
 
 WHERE customer_last_name REGEXP '(a)$' -- filtering to cust last name ending in a
+<<<<<<< HEAD
 
   INSTR('FirstWord, SecondWord, ThirdWord',',')+1) AS ThirdDelim
 
 /* MODULE 4 */
 /* Substring & instring together */
+=======
+</sql><sql name="substr_instr_together">/* MODULE 4 */
+/* Substring &amp; instring together */
+>>>>>>> 40867c37bc69f213a0b31c333943379c670513c2
 
 
 /* think of this as a comma delimiter ... but it's a bit silly ... do this in python/R instead unless you have to */
@@ -274,6 +349,7 @@ SELECT
     INSTR('FirstWord, SecondWord, ThirdWord',',')+1))
   ,',') + 
   INSTR('FirstWord, SecondWord, ThirdWord',',')+1) AS ThirdDelim
+<<<<<<< HEAD
 /* MODULE 4 */
 /* UNION */
 
@@ -405,3 +481,6 @@ products that do not exist, because no products purchased are NOT in the product
 
 /* 4. We can remake the intersect with a WHERE subquery for more details ...  */
 
+=======
+</sql><sql name="UNION_UNION_ALL.sql" filename="/Users/thomas/Documents/GitHub/02-intro_sql/04_this_cohort/live_code/DC/module_4/UNION_UNION_ALL.sql">-- Reference to file &quot;/Users/thomas/Documents/GitHub/02-intro_sql/04_this_cohort/live_code/DC/module_4/UNION_UNION_ALL.sql&quot; (not supported by this version) --</sql><sql name="FULL_OUTER_JOIN_WITH_UNION.sql" filename="/Users/thomas/Documents/GitHub/02-intro_sql/04_this_cohort/live_code/DC/module_4/FULL_OUTER_JOIN_WITH_UNION.sql">-- Reference to file &quot;/Users/thomas/Documents/GitHub/02-intro_sql/04_this_cohort/live_code/DC/module_4/FULL_OUTER_JOIN_WITH_UNION.sql&quot; (not supported by this version) --</sql><sql name="INTERSECT_EXCEPT.sql" filename="/Users/thomas/Documents/GitHub/02-intro_sql/04_this_cohort/live_code/DC/module_4/INTERSECT_EXCEPT.sql">-- Reference to file &quot;/Users/thomas/Documents/GitHub/02-intro_sql/04_this_cohort/live_code/DC/module_4/INTERSECT_EXCEPT.sql&quot; (not supported by this version) --</sql><current_tab id="9"/></tab_sql></sqlb_project>
+>>>>>>> 40867c37bc69f213a0b31c333943379c670513c2
